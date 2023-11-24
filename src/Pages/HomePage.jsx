@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function HomePage() {
   const [lineData, setLineData] = useState([
@@ -15,6 +15,8 @@ export default function HomePage() {
 
   const [choices, setChoices] = useState(["help"]);
   const [newText, setNewText] = useState("");
+
+  const codeContentRef = useRef();
 
   const newLineWriter = useCallback((content) => {
     if (content === "clear") {
@@ -41,6 +43,17 @@ export default function HomePage() {
     }, 200);
   }, [newLineWriter, newText]);
 
+  const scrollToBottom = () => {
+    codeContentRef.current?.scrollTo({
+      top: codeContentRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [lineData]);
+
   return (
     <Box id="wrapper" className="centeralize">
       <Box id="centerbox">
@@ -55,7 +68,7 @@ export default function HomePage() {
               <Typography>Running: HPBD KDJ</Typography>
             </Box>
           </Box>
-          <Box id="codeContent">
+          <Box id="codeContent" ref={codeContentRef}>
             {lineData}
             <Box id="cursor">
               $ {newText}
