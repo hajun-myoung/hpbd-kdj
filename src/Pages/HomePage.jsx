@@ -19,18 +19,28 @@ export default function HomePage() {
   const codeContentRef = useRef();
 
   const newLineWriter = useCallback((content) => {
-    if (content === "clear") {
-      setLineData([]);
-    } else if (content === "help") {
-      setChoices(["help", "login", "get_cele", "clear"]);
-      setLineData((prev) => [
-        ...prev,
-        <Typography className="code">help 사용 가능한 명령어 보기</Typography>,
-        <Typography className="code">login 로그인하기</Typography>,
-        <Typography className="code">get_cele 축하받기</Typography>,
-        <Typography className="code">clear 명령 창 지우기</Typography>,
-        <Typography className="code" />,
-      ]);
+    if (content?.length > 0) {
+      if (content === "clear") {
+        setLineData([]);
+      } else if (content === "help") {
+        setChoices(["help", "login", "get_cele", "clear"]);
+        setLineData((prev) => [
+          ...prev,
+          <Typography className="code">
+            help 사용 가능한 명령어 보기
+          </Typography>,
+          <Typography className="code">login 로그인하기</Typography>,
+          <Typography className="code">get_cele 축하받기</Typography>,
+          <Typography className="code">clear 명령 창 지우기</Typography>,
+          <Typography className="code" />,
+        ]);
+      } else {
+        setLineData((prev) => [
+          ...prev,
+          <Typography className="code">{content} is not defined</Typography>,
+          <Typography className="code" />,
+        ]);
+      }
     }
   }, []);
 
