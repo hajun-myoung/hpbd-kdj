@@ -160,3 +160,30 @@ body {
 p.code {
   height: 22px;
 }
+
+#cursor {
+  font-size: 20px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+}
+
+#cursor #cursorBox {
+  width: 10px;
+  height: 20px;
+  background-color: #aaa;
+  margin-left: 10px;
+  animation: blink_cursor 1s infinite linear;
+}
+
+@keyframes blink_cursor {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

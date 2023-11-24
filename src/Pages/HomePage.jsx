@@ -14,6 +14,7 @@ export default function HomePage() {
   ]);
 
   const [choices, setChoices] = useState(["help"]);
+  const [newText, setNewText] = useState("");
 
   const newLineWriter = useCallback((content) => {
     if (content === "clear") {
@@ -48,7 +49,8 @@ export default function HomePage() {
           <Box id="codeContent">
             {lineData}
             <Box id="cursor">
-              $ <Box id="cursorBox" />
+              $ {newText}
+              <Box id="cursorBox" />
             </Box>
           </Box>
           <Box id="selectors">
@@ -56,7 +58,7 @@ export default function HomePage() {
               <Button
                 className="choice"
                 onClick={() => {
-                  newLineWriter(choice);
+                  //   newLineWriter(choice);
                 }}
               >
                 <Typography>{choice}</Typography>
