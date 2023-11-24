@@ -172,6 +172,8 @@ p.code {
   width: 10px;
   height: 20px;
   background-color: #aaa;
+  font-family: "Fira Mono", Consolas, Menlo, Monaco, "Courier New", Courier,
+    monospace;
   margin-left: 10px;
   animation: blink_cursor 1s infinite linear;
 }

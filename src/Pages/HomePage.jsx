@@ -2,7 +2,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function HomePage() {
   const [lineData, setLineData] = useState([
@@ -32,6 +32,15 @@ export default function HomePage() {
     }
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setNewText("");
+    }, 200);
+    setTimeout(() => {
+      newLineWriter(newText);
+    }, 200);
+  }, [newLineWriter, newText]);
+
   return (
     <Box id="wrapper" className="centeralize">
       <Box id="centerbox">
@@ -59,6 +68,7 @@ export default function HomePage() {
                 className="choice"
                 onClick={() => {
                   //   newLineWriter(choice);
+                  setNewText(choice);
                 }}
               >
                 <Typography>{choice}</Typography>
