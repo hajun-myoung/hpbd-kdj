@@ -15,34 +15,95 @@ export default function HomePage() {
 
   const [choices, setChoices] = useState(["help"]);
   const [newText, setNewText] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
 
   const codeContentRef = useRef();
 
-  const newLineWriter = useCallback((content) => {
-    if (content?.length > 0) {
-      if (content === "clear") {
-        setLineData([]);
-      } else if (content === "help") {
-        setChoices(["help", "login", "get_cele", "clear"]);
-        setLineData((prev) => [
-          ...prev,
-          <Typography className="code">
-            help 사용 가능한 명령어 보기
-          </Typography>,
-          <Typography className="code">login 로그인하기</Typography>,
-          <Typography className="code">get_cele 축하받기</Typography>,
-          <Typography className="code">clear 명령 창 지우기</Typography>,
-          <Typography className="code" />,
-        ]);
-      } else {
-        setLineData((prev) => [
-          ...prev,
-          <Typography className="code">{content} is not defined</Typography>,
-          <Typography className="code" />,
-        ]);
+  const newLineWriter = useCallback(
+    (content) => {
+      if (content?.length > 0) {
+        if (content === "clear") {
+          setLineData([]);
+        } else if (content === "help") {
+          setChoices(["help", "login", "get_cele", "clear"]);
+          setLineData((prev) => [
+            ...prev,
+            <Typography className="code">
+              help 사용 가능한 명령어 보기
+            </Typography>,
+            <Typography className="code">login 로그인하기</Typography>,
+            <Typography className="code">get_cele 축하받기</Typography>,
+            <Typography className="code">clear 명령 창 지우기</Typography>,
+            <Typography className="code" />,
+          ]);
+        } else if (content === "login") {
+          setChoices(["eclipse", "M&M's", "스니커즈"]);
+          setLineData((prev) => [
+            ...prev,
+            <Typography className="code">
+              선택지 중 KDJ를 가장 잘 표현하는
+            </Typography>,
+            <Typography className="code">요소를 고르시오</Typography>,
+            <Typography className="code" />,
+          ]);
+        } else if (content === "eclipse") {
+          setChoices(["get_cele"]);
+          setIsLogin(true);
+          setLineData((prev) => [
+            ...prev,
+            <Typography className="code">인증되었습니다</Typography>,
+            <Typography className="code" />,
+          ]);
+        } else if (content === "M&M's") {
+          setChoices(["help", "login", "get_cele", "clear"]);
+          setLineData((prev) => [
+            ...prev,
+            <Typography className="code">{content} 겠냐?</Typography>,
+          ]);
+          setLineData((prev) => [...prev, <Typography className="code" />]);
+        } else if (content === "스니커즈") {
+          setChoices(["help", "login", "get_cele", "clear"]);
+          setLineData((prev) => [
+            ...prev,
+            <Typography className="code">{content} 겠냐?</Typography>,
+          ]);
+          setLineData((prev) => [...prev, <Typography className="code" />]);
+        } else if (content === "get_cele") {
+          if (isLogin) {
+            setChoices(["get_cele", "clear"]);
+            setLineData((prev) => [
+              ...prev,
+              <Typography className="code">생일 축하합니다, 동진!</Typography>,
+              <Typography className="code">
+                사랑해요 -by.정아세은선아하준
+              </Typography>,
+              <Typography className="code" />,
+            ]);
+            setTimeout(() => {
+              window.open("https://youtu.be/_JsemaQu-5w", "_blank");
+            }, 500);
+          } else {
+            setChoices(["help", "login", "get_cele", "clear"]);
+            setLineData((prev) => [
+              ...prev,
+              <Typography className="code">
+                사용자가 확인되지 않았습니다
+              </Typography>,
+              <Typography className="code">로그인을 먼저 해주세요</Typography>,
+              <Typography className="code" />,
+            ]);
+          }
+        } else {
+          setLineData((prev) => [
+            ...prev,
+            <Typography className="code">{content} is not defined</Typography>,
+            <Typography className="code" />,
+          ]);
+        }
       }
-    }
-  }, []);
+    },
+    [isLogin]
+  );
 
   useEffect(() => {
     setTimeout(() => {
